@@ -180,7 +180,7 @@ function car(){
 	this.update = function(){
 		//this.vel.add(this.acc);
 
-		if (renderTrack.get(int(this.pos.x),int(this.pos.y))[3] != 255 || renderTrack.get(int(this.pos.x),int(this.pos.y))[3] != null){
+		if (renderTrack.get(int(this.pos.x),int(this.pos.y))[3] != 255 || renderTrack.get(int(this.pos.x),int(this.pos.y))[3] == null){
 			this.vel.setMag(this.vel.mag()*0.95)
 		}
 
