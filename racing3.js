@@ -142,10 +142,11 @@ function draw(){
 								if ( count == population - r){                           
 									if (r == 0){
 										parent1 = n
+										console.log(parent1)
 									} else {
 										parent2 = n
+										console.log(parent2)
 									}
-
 									break
 								}
 							}
