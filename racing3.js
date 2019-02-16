@@ -24,7 +24,7 @@ var carSprite
 
 var renderTrack
 var drawingMode = true
-var showInputs = true
+var showInputs = false
 
 var tick = 0
 var maxticks = 500
