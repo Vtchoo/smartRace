@@ -14,6 +14,7 @@ var nnMutationRate = 0.05
 var nnActivation = "softsign"
 var population = 30
 var offs = 3
+var breedingMode = "best"
 
 var cars = []
 var nets = []
@@ -114,15 +115,43 @@ function draw(){
 		case "breeding":
 
 			for (var m = 0 ; m < offs ; m++){
-				parent1 = int(Math.random()*population)
-				parent2 = int(Math.random()*population)
-				console.log(parent1)
 
-				while (parent2 == parent1){
-					parent2 = int(Math.random()*population)
-					console.log("parent1 = parent2")
+				switch (breedingMode){
+					case "random":
+
+						parent1 = int(Math.random()*population)
+						parent2 = int(Math.random()*population)
+						console.log(parent1)
+
+						while (parent2 == parent1){
+							parent2 = int(Math.random()*population)
+							console.log("parent1 = parent2")
+						}
+						console.log(parent2)
+						break
+
+					case "best":
+
+						for (var r = 0; r < 2 ; r++){
+							for (var n = 0 ; n < population ; n++){
+								var count = 0
+								for(var o = 0 ; o < population ; o++){
+									if (nets[o].fitness <= nets[n].fitness){ count++ }		// Count how many individuals have lower fitness
+								}
+
+								if ( count == population - r){                           
+									if (r == 0){
+										parent1 = n
+									} else {
+										parent2 = n
+									}
+
+									break
+								}
+							}
+						}
+						break
 				}
-				console.log(parent2)
 
 				newOffspring[m] = new offspring(nets[parent1], nets[parent2])
 				newOffspring[m].addfitness(Infinity)
