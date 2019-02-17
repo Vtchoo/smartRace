@@ -24,7 +24,7 @@ var carSprite
 
 var renderTrack
 var drawingMode = true
-var showInputs = false
+var showInputs = true
 
 var tick = 0
 var maxticks = 500
@@ -139,7 +139,7 @@ function draw(){
 									if (nets[o].fitness <= nets[n].fitness){ count++ }		// Count how many individuals have lower fitness
 								}
 
-								if ( count == population - r){                           
+								if ( count == population - r - 2*m){                           
 									if (r == 0){
 										parent1 = n
 										console.log(parent1)
@@ -211,7 +211,7 @@ function car(){
 		//this.vel.add(this.acc);
 
 		if (renderTrack.get(this.pos.x,this.pos.y)[3] != 255 || renderTrack.get(this.pos.x,this.pos.y)[3] == null){
-			this.vel.setMag(this.vel.mag()*0.6)
+			this.vel.setMag(/* this.vel.mag()* */0)
 		}
 
 		this.pos.add(this.vel);
