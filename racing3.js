@@ -167,7 +167,9 @@ function draw(){
 
 					if ( count == population - m){
 						nets[n] = newOffspring[m]
-						cars[n].paintRGB = [(cars[parent1].paintRGB[0]+cars[parent2].paintRGB[0])/2, (cars[parent1].paintRGB[1]+cars[parent2].paintRGB[1])/2, (cars[parent1].paintRGB[2]+cars[parent2].paintRGB[2])/2]
+						cars[n].paintRGB = [sqrt((sq(cars[parent1].paintRGB[0])+sq(cars[parent2].paintRGB[0]))/2), 
+								    sqrt((sq(cars[parent1].paintRGB[1])+sq(cars[parent2].paintRGB[1]))/2), 
+								    sqrt((sq(cars[parent1].paintRGB[2])+sq(cars[parent2].paintRGB[2]))/2)]
 						break
 					}
 				}
