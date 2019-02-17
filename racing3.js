@@ -170,7 +170,7 @@ function draw(){
 						cars[n].paintRGB = [int((sqrt((sq(cars[parent1].paintRGB[0])+sq(cars[parent2].paintRGB[0]))/2)+10*(Math.round(Math.random()) * 2 - 1)*nnMutationRate*255)%255), 
 								    int((sqrt((sq(cars[parent1].paintRGB[1])+sq(cars[parent2].paintRGB[1]))/2)+10*(Math.round(Math.random()) * 2 - 1)*nnMutationRate*255)%255), 
 								    int((sqrt((sq(cars[parent1].paintRGB[2])+sq(cars[parent2].paintRGB[2]))/2)+10*(Math.round(Math.random()) * 2 - 1)*nnMutationRate*255)%255)]
-						cars[n].paint = "rgb("+cars[n].paintRGB[0]+","+cars[n].paintRGB[1]+","+cars[n].paintRGB[2]+")"
+						//cars[n].paint = "rgb("+cars[n].paintRGB[0]+","+cars[n].paintRGB[1]+","+cars[n].paintRGB[2]+")"
 						break
 					}
 				}
