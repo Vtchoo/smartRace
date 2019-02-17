@@ -211,7 +211,7 @@ function car(){
 		//this.vel.add(this.acc);
 
 		if (renderTrack.get(this.pos.x,this.pos.y)[3] != 255 || renderTrack.get(this.pos.x,this.pos.y)[3] == null){
-			this.vel.setMag(/* this.vel.mag()* */0)
+			this.vel.setMag(/* this.vel.mag()* */0.000001)
 		}
 
 		this.pos.add(this.vel);
