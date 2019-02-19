@@ -185,6 +185,12 @@ function draw(){
 			//carro2.pos.x = startX
 			//carro2.pos.y = startY
 
+			console.log(getFitness(1, nets))
+			console.log(getFitness(2, nets))
+			console.log(getFitness(population, nets))
+			console.log(getFitness(population - 1, nets))
+
+
 			for (var m = 0; m < population; m++){
 				nets[m].resetfitness()
 				cars[m].pos = createVector(startX, startY)

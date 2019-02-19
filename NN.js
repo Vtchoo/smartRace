@@ -104,6 +104,31 @@ function neuralNet(layers, neurons, inputs, outputs, range, mutationRate, activa
 		this.fitness = 0
 	}
 
+	this.mutate = function(){
+
+		for ( i = 0 ; i < this.layers + 1 ; i++ ){
+
+			if ( i == 0 ){                      // Mutate the first weights, from the input values to the first layer
+
+				for ( j = 0 ; j < this.inputs*this.neurons ; j++){
+					if (Math.random() < this.mutationRate){ this.weights[i][j] = (Math.random() - (1/2)) * 2 * this.range }
+				}
+
+			}else if( i == this.layers ){            // Create the last weights, from the last layer to the output values
+
+				for ( j = 0 ; j < this.outputs*this.neurons ; j++){ 
+					if (Math.random() < this.mutationRate){ this.weights[i][j] = (Math.random() - (1/2)) * 2 * this.range }
+				}
+
+			}else{								// Create the weights between hidden neuron layers
+
+				for ( j = 0 ; j < this.neurons*this.neurons ; j++){ 
+					if (Math.random() < this.mutationRate){ this.weights[i][j] = (Math.random() - (1/2)) * 2 * this.range }
+				}
+			}	
+		}
+	}
+
 }
 
 function activate(value, activation){
@@ -283,7 +308,20 @@ function offspring(parent1, parent2){
 				}
 			}	
 		}
-
 	}
+}
+
+function getFitness(n, population){
+
+	var count = 0
+
+	for (var a = 0 ; a < population.length ; a ++){
+		for (var b = 0 ; b < population.length ; b++){
+			if ( population[a].fitness >= population[b].fitness ) { count++ }
+		}
+
+		if ( count == population.length - n + 1 ) { return [a, population[a].fitness] }
+	}
+
 
 }
