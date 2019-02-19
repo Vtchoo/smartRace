@@ -168,8 +168,8 @@ function draw(){
 					if ( count == population - m){
 						nets[n] = newOffspring[m]
 						cars[n].paintRGB = [int((sqrt((sq(cars[parent1].paintRGB[0])+sq(cars[parent2].paintRGB[0]))/2)+10*(Math.round(Math.random()) * 2 - 1)*nnMutationRate*255)%255), 
-								    int((sqrt((sq(cars[parent1].paintRGB[1])+sq(cars[parent2].paintRGB[1]))/2)+10*(Math.round(Math.random()) * 2 - 1)*nnMutationRate*255)%255), 
-								    int((sqrt((sq(cars[parent1].paintRGB[2])+sq(cars[parent2].paintRGB[2]))/2)+10*(Math.round(Math.random()) * 2 - 1)*nnMutationRate*255)%255)]
+								    		int((sqrt((sq(cars[parent1].paintRGB[1])+sq(cars[parent2].paintRGB[1]))/2)+10*(Math.round(Math.random()) * 2 - 1)*nnMutationRate*255)%255), 
+								    		int((sqrt((sq(cars[parent1].paintRGB[2])+sq(cars[parent2].paintRGB[2]))/2)+10*(Math.round(Math.random()) * 2 - 1)*nnMutationRate*255)%255)]
 						//cars[n].paint = "rgb("+cars[n].paintRGB[0]+","+cars[n].paintRGB[1]+","+cars[n].paintRGB[2]+")"
 						break
 					}
@@ -236,7 +236,7 @@ function car(){
 
 	this.drive = function(input){
 
-		this.multiplier = this.vel.mag()/(1 + this.vel.mag())
+		this.multiplier = this.vel.mag()/(2 + this.vel.mag())
 
 		if (input[0] >= 0) {
 			this.vel.add(createVector(Math.cos(this.vel.heading())*.05,Math.sin(this.vel.heading())*.05))
