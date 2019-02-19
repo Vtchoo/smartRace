@@ -311,16 +311,16 @@ function offspring(parent1, parent2){
 	}
 }
 
-function getFitness(n, population){
+function getFitness(n, populationArray){
 
 	var count = 0
 
-	for (var a = 0 ; a < population.length ; a ++){
-		for (var b = 0 ; b < population.length ; b++){
-			if ( population[a].fitness >= population[b].fitness ) { count++ }
+	for (var a = 0 ; a < populationArray.length ; a ++){
+		for (var b = 0 ; b < populationArray.length ; b++){
+			if ( populationArray[a].fitness >= populationArray[b].fitness ) { count++ }
 		}
 
-		if ( count == population.length - n + 1 ) { return [a, population[a].fitness] }
+		if ( count == populationArray.length - n + 1 ) { return [a, populationArray[a].fitness] }
 	}
 
 
