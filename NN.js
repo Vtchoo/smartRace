@@ -1,6 +1,6 @@
 function neuralNet(layers, neurons, inputs, outputs, range, mutationRate, activation){
 	
-	console.log("It works")
+	//console.log("New neural net generated")
 	
 	this.range = range
 	this.layers = layers
@@ -171,6 +171,8 @@ function offspring(parent1, parent2){
 	this.activation = parent1.activation
 	this.mutationRate = parent1.mutationRate
 
+	this.fitness = 0
+
 	this.weights = []
 
 	for ( i = 0 ; i < this.layers + 1 ; i++ ){
@@ -287,6 +289,8 @@ function offspring(parent1, parent2){
 
 	this.mutate = function(){
 
+		console.log("Be careful, this is how you get zombies")
+
 		for ( i = 0 ; i < this.layers + 1 ; i++ ){
 
 			if ( i == 0 ){                      // Mutate the first weights, from the input values to the first layer
@@ -315,13 +319,33 @@ function getFitness(n, populationArray){
 
 	var count = 0
 
-	for (var a = 0 ; a < populationArray.length ; a ++){
+	for (var a = 0 ; a < populationArray.length ; a++){
+		
 		for (var b = 0 ; b < populationArray.length ; b++){
 			if ( populationArray[a].fitness >= populationArray[b].fitness ) { count++ }
 		}
 
-		if ( count == populationArray.length - n + 1 ) { return [a, populationArray[a].fitness] }
+		if ( count == populationArray.length - n + 1 ) { 
+			return [a, populationArray[a].fitness]
+		}
+
+		count = 0
+	}
+	
+}
+
+function getMaxFitness(populationArray){
+
+	var id = 0
+	var fitness = populationArray[0].fitness
+
+	for (var a = 0 ; a < populationArray.length - 1 ; a++){
+		if ( populationArray[a + 1].fitness > populationArray[a].fitness){
+			id = a + 1
+			fitness = populationArray[a + 1].fitness
+		}
 	}
 
+	return [id, fitness]
 
 }

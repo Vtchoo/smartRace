@@ -19,6 +19,8 @@ var breedingMode = "best"
 var cars = []
 var nets = []
 var newOffspring = []
+var newOffspringPaint = []
+var newOffspringReplace = []
 
 var carSprite 
 
@@ -114,82 +116,35 @@ function draw(){
 
 		case "breeding":
 
+			//console.log(getFitness(1, nets))
+			//console.log(getFitness(2, nets))
+			//console.log(getFitness(population, nets))
+			//console.log(getFitness(population - 1, nets))
+			//console.log(getFitness(population - 2, nets))
+			
+
 			for (var m = 0 ; m < offs ; m++){
-
-				switch (breedingMode){
-					case "random":
-
-						parent1 = int(Math.random()*population)
-						parent2 = int(Math.random()*population)
-						console.log(parent1)
-
-						while (parent2 == parent1){
-							parent2 = int(Math.random()*population)
-							console.log("parent1 = parent2")
-						}
-						console.log(parent2)
-						break
-
-					case "best":
-
-						for (var r = 0; r < 2 ; r++){
-							for (var n = 0 ; n < population ; n++){
-								var count = 0
-								for(var o = 0 ; o < population ; o++){
-									if (nets[o].fitness <= nets[n].fitness){ count++ }		// Count how many individuals have lower fitness
-								}
-
-								if ( count == population - r - 2*m){                           
-									if (r == 0){
-										parent1 = n
-										console.log(parent1)
-									} else {
-										parent2 = n
-										console.log(parent2)
-									}
-									break
-								}
-							}
-						}
-						break
-				}
-
+				parent1 = getFitness(1 + 2*m, nets)[0]
+				parent2 = getFitness(2 + 2*m, nets)[0]
+				console.log(parent1)
+				console.log(parent2)
 				newOffspring[m] = new offspring(nets[parent1], nets[parent2])
-				newOffspring[m].addfitness(Infinity)
+				newOffspring[m].fitness = Infinity
+				newOffspringPaint[m] = [int((sqrt((sq(cars[parent1].paintRGB[0])+sq(cars[parent2].paintRGB[0]))/2)+10*(Math.round(Math.random()) * 2 - 1)*nnMutationRate*255)%255), 
+										int((sqrt((sq(cars[parent1].paintRGB[1])+sq(cars[parent2].paintRGB[1]))/2)+10*(Math.round(Math.random()) * 2 - 1)*nnMutationRate*255)%255), 
+								    	int((sqrt((sq(cars[parent1].paintRGB[2])+sq(cars[parent2].paintRGB[2]))/2)+10*(Math.round(Math.random()) * 2 - 1)*nnMutationRate*255)%255)]
+				newOffspringReplace[m] = getFitness(population - m, nets)[0]
 			}
 
 			for (var m = 0 ; m < offs ; m++){
-				for (var n = 0 ; n < population ; n++){
-					var count = 0
-					for(var o = 0 ; o < population ; o++){
-						if (nets[o].fitness >= nets[n].fitness){ count++ }
-					}
 
-					if ( count == population - m){
-						nets[n] = newOffspring[m]
-						cars[n].paintRGB = [int((sqrt((sq(cars[parent1].paintRGB[0])+sq(cars[parent2].paintRGB[0]))/2)+10*(Math.round(Math.random()) * 2 - 1)*nnMutationRate*255)%255), 
-								    		int((sqrt((sq(cars[parent1].paintRGB[1])+sq(cars[parent2].paintRGB[1]))/2)+10*(Math.round(Math.random()) * 2 - 1)*nnMutationRate*255)%255), 
-								    		int((sqrt((sq(cars[parent1].paintRGB[2])+sq(cars[parent2].paintRGB[2]))/2)+10*(Math.round(Math.random()) * 2 - 1)*nnMutationRate*255)%255)]
-						//cars[n].paint = "rgb("+cars[n].paintRGB[0]+","+cars[n].paintRGB[1]+","+cars[n].paintRGB[2]+")"
-						break
-					}
-				}
+				nets[newOffspringReplace[m]] = newOffspring[m]
+				cars[newOffspringReplace[m]].paintRGB = newOffspringPaint[m]
+				
 			}
 
-
-			//carro3 = new car()
-			//rede3 = new offspring(rede1, rede2)
-
-			//carro1.pos.x = startX
-			//carro1.pos.y = startY
-			//carro2.pos.x = startX
-			//carro2.pos.y = startY
-
-			console.log(getFitness(1, nets))
-			console.log(getFitness(2, nets))
-			console.log(getFitness(population, nets))
-			console.log(getFitness(population - 1, nets))
-
+			nets[getFitness(population, nets)[0]].mutate()
+			nets[getFitness(population - 1, nets)[0]].mutate()
 
 			for (var m = 0; m < population; m++){
 				nets[m].resetfitness()
