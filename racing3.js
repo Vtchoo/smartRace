@@ -148,7 +148,7 @@ function draw(){
 
 			for (var m = 0; m < population; m++){
 				nets[m].resetfitness()
-				cars[m].pos = createVector(startX, startY)
+				cars[m].pos = createVector(startX + Math.random(-0.5, .5), startY + Math.random(-0.5, .5))
 				cars[m].vel = createVector(.0001*Math.cos(initialHeading), .0001*Math.sin(initialHeading));
 			}
 
